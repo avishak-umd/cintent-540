@@ -54,7 +54,7 @@ jobs:
           sudo apt-get install espeak espeak-ng
           make system-deps
       - name: Install/upgrade Python setup deps
-        run: python3 -m pip install --upgrade pip setuptools wheel
+        run:  python3 -m pip install --upgrade pip "setuptools<81" wheel
       - name: Replace scarf urls
         run: |
           sed -i 's/https:\/\/coqui.gateway.scarf.sh\/hf\/bark\//https:\/\/huggingface.co\/erogol\/bark\/resolve\/main\//g' TTS/.models.json
