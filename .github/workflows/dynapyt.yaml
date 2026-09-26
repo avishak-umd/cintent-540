@@ -40,7 +40,7 @@ jobs:
       # CINTENT >> INSERT_CINTENT
       - uses: clonedSemicolon/seytup-dynapyt@master
         with:
-          directory: my_package/
+          directory: TTS
 
       - name: check OS
         run: cat /etc/os-release
