@@ -54,7 +54,7 @@ jobs:
           sudo apt-get install espeak espeak-ng
           make system-deps
       - name: Install/upgrade Python setup deps
-        run: python3 -m pip install --upgrade pip setuptools wheel
+        run: python3 -m pip install --upgrade pip "setuptools<81" wheel  # setuptools>=81 drops pkg_resources, which librosa needs
       - name: Replace scarf urls
         run: |
           sed -i 's/https:\/\/coqui.gateway.scarf.sh\/hf\/bark\//https:\/\/huggingface.co\/erogol\/bark\/resolve\/main\//g' TTS/.models.json
@@ -64,7 +64,8 @@ jobs:
           python3 -m pip install .[all]
           python3 setup.py egg_info
       - name: Unit tests
-        run: nose2 -F -v -B --with-coverage --coverage TTS tests.zoo_tests.test_models.test_models_offset_1_step_3
+        timeout-minutes: 330
+        run: nose2 -F -v -B --with-coverage --coverage TTS --plugin nose2.plugins.junitxml --junit-xml --junit-xml-path dynapyt-output/junit.xml tests.zoo_tests.test_models.test_models_offset_1_step_3
 
       - uses: clonedSemicolon/seytup-dynapyt@master
         if: always()
