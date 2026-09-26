@@ -41,6 +41,7 @@ jobs:
       - uses: clonedSemicolon/seytup-dynapyt@master
         with:
           directory: TTS
+          dynapyt_path: git+https://github.com/sola-st/DynaPyt.git@07680e074c9f280c320f9e359500f672b662de7f
 
       - name: check OS
         run: cat /etc/os-release
@@ -65,8 +66,6 @@ jobs:
       - name: Unit tests
         run: nose2 -F -v -B --with-coverage --coverage TTS tests.zoo_tests.test_models.test_models_offset_1_step_3
 
-      - uses: actions/upload-artifact@v4
+      - uses: clonedSemicolon/seytup-dynapyt@master
         if: always()
-        with:
-          name: dynapyt-callgraph
-          path: dynapyt.json
+        with: { mode: collect }
